@@ -7,3 +7,7 @@ target/
 *.log
 .idea/
 .vscode/
+
+target/
+.local*.log
+Microsoft/
