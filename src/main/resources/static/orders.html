@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My orders | ShopSphere</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="common.js" defer></script>
+  <script src="orders.js" defer></script>
+</head>
+<body data-page="orders">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="navbar navbar-dark bg-primary">
+  <nav class="container nav-content" aria-label="Main navigation">
+    <a class="navbar-brand" href="index.html">ShopSphere</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="products.html">Products</a>
+      <a href="cart.html">Cart <span id="cart-count">0</span></a>
+      <a href="orders.html" data-signed-in hidden>My orders</a>
+      <a href="admin.html" id="admin-link" hidden>Admin</a>
+      <a href="login.html" data-signed-out>Login</a>
+      <a href="register.html" data-signed-out>Register</a>
+      <span id="account-name" data-signed-in hidden></span>
+      <button id="logout" class="btn btn-light btn-sm" data-signed-in hidden type="button">Logout</button>
+    </div>
+  </nav>
+</header>
+<div id="notice" class="container" aria-live="polite"></div>
+<main id="main" class="container page-content">
+<h1>My orders</h1><p id="orders-empty" hidden>No orders yet. <a href="products.html">Browse products</a></p><div id="order-list"></div>
+</main>
+<footer class="container site-footer">ShopSphere · Prices in INR · Cash on delivery only</footer>
+<template id="order-template">
+  <article class="card order-card"><div class="card-body">
+    <h2 class="h5" data-order-title></h2><p data-date></p><p>Status: <strong data-status></strong></p>
+    <p>Cash on delivery</p><ul data-items></ul><p><strong data-total></strong></p>
+    <h3 class="h6">Delivery details</h3><p data-address class="preserve-lines"></p>
+    <form class="status-form" hidden><label class="form-label">Order status <select class="form-select" name="status"></select></label> <button class="btn btn-primary" type="submit">Update status</button></form>
+  </div></article>
+</template>
+</body>
+</html>
