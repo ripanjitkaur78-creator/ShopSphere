@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | ShopSphere</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <script src="common.js" defer></script>
+  <script src="orders.js" defer></script><script src="admin.js" defer></script>
+</head>
+<body data-page="admin">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="navbar navbar-dark bg-primary">
+  <nav class="container nav-content" aria-label="Main navigation">
+    <a class="navbar-brand" href="index.html">ShopSphere</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="products.html">Products</a>
+      <a href="cart.html">Cart <span id="cart-count">0</span></a>
+      <a href="orders.html" data-signed-in hidden>My orders</a>
+      <a href="admin.html" id="admin-link" hidden>Admin</a>
+      <a href="login.html" data-signed-out>Login</a>
+      <a href="register.html" data-signed-out>Register</a>
+      <span id="account-name" data-signed-in hidden></span>
+      <button id="logout" class="btn btn-light btn-sm" data-signed-in hidden type="button">Logout</button>
+    </div>
+  </nav>
+</header>
+<div id="notice" class="container" aria-live="polite"></div>
+<main id="main" class="container page-content">
+<h1>Store administration</h1>
+<div id="admin-content" hidden>
+<nav class="section-links" aria-label="Admin sections"><a href="#products-section">Products</a><a href="#categories-section">Categories</a><a href="#orders-section">Orders</a><a href="#users-section">Users</a></nav>
+<section id="products-section"><h2>Products</h2>
+<div class="admin-layout">
+<div class="card"><div class="card-body"><h3 id="editor-title" class="h5">Add product</h3>
+<form id="product-editor"><input type="hidden" name="id">
+<div class="mb-3"><label for="p-name" class="form-label">Product name</label><input id="p-name" name="name" class="form-control" maxlength="160" required></div>
+<div class="mb-3"><label for="p-description" class="form-label">Description</label><textarea id="p-description" name="description" class="form-control" maxlength="4000" required></textarea></div>
+<div class="mb-3"><label for="p-price" class="form-label">Price (INR)</label><input id="p-price" name="price" type="number" class="form-control" min="0.01" max="9999999999.99" step="0.01" required></div>
+<div class="mb-3"><label for="p-stock" class="form-label">Stock</label><input id="p-stock" name="stock" type="number" class="form-control" min="0" max="2147483647" step="1" required></div>
+<div class="mb-3"><label for="p-category" class="form-label">Category</label><select id="p-category" name="categoryId" class="form-select" required><option value="">Select category</option></select></div>
+<div class="mb-3"><label for="p-image" class="form-label">Image URL</label><input id="p-image" name="imageUrl" class="form-control" maxlength="1000"><small>Use an HTTPS URL or a local /images/ path. Leave blank for no image.</small></div>
+<div class="mb-3"><label><input name="featured" type="checkbox"> Featured product</label></div>
+<button id="save-product" class="btn btn-primary" type="submit">Create product</button> <button id="reset-editor" class="btn btn-secondary" type="button">Clear</button>
+</form></div></div>
+<div class="table-responsive"><table class="table"><caption>Product catalog</caption><thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="product-rows"></tbody></table></div>
+</div></section>
+<section id="categories-section"><h2>Categories</h2><ul id="category-list"></ul><form id="category-form" class="inline-form"><div><label for="c-name" class="form-label">Category name</label><input id="c-name" class="form-control" name="name" maxlength="80" required></div><button class="btn btn-primary" type="submit">Add category</button></form></section>
+<section id="orders-section"><h2>Orders</h2><p id="orders-empty" hidden>No orders yet.</p><div id="order-list"></div></section>
+<section id="users-section"><h2>Registered users</h2><p>Read-only account directory.</p><div class="table-responsive"><table class="table"><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th></tr></thead><tbody id="user-rows"></tbody></table></div></section>
+</div>
+</main>
+<footer class="container site-footer">ShopSphere · Prices in INR · Cash on delivery only</footer>
+<template id="order-template">
+  <article class="card order-card"><div class="card-body">
+    <h2 class="h5" data-order-title></h2><p data-date></p><p>Status: <strong data-status></strong></p>
+    <p>Cash on delivery</p><ul data-items></ul><p><strong data-total></strong></p>
+    <h3 class="h6">Delivery details</h3><p data-address class="preserve-lines"></p>
+    <form class="status-form" hidden><label class="form-label">Order status <select class="form-select" name="status"></select></label> <button class="btn btn-primary" type="submit">Update status</button></form>
+  </div></article>
+</template>
+</body>
+</html>
